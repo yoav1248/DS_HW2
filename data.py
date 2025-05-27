@@ -5,6 +5,9 @@ def load_data(path):
     return pd.read_csv(path)
 
 def add_new_columns(df):
+    # override df with a copy so original dataframe is not modified
+    df = df.copy()
+
     season_names = ['spring', 'summer', 'fall', 'winter']
     get_season_name = lambda i: season_names[i]
     df['season_name'] = df['season'].apply(get_season_name)
