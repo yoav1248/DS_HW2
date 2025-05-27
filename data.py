@@ -55,3 +55,8 @@ def data_analysis(df):
         print(f"{i+1}. {feature_pair} with {abs_corr:.6f}")
     print()
 
+    season_t_diff_means = df.groupby(["season_name"])["t_diff"].mean()
+    season_t_diff_means["All"] = df["t_diff"].mean()
+    for season_name, avg in season_t_diff_means.items():
+        print(f"{season_name} average t_diff is {avg:.2f}")
+

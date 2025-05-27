@@ -1,4 +1,5 @@
 C:\Users\yoava\PycharmProjects\DS_HW2\.venv\Scripts\python.exe C:\Users\yoava\PycharmProjects\DS_HW2\main.py
+Part A:
 describe output:
                cnt          t1          t2         hum  wind_speed  weather_code  is_holiday  is_weekend      season        Hour         Day       Month         Year  is_weekend_holiday      t_diff
 count   500.000000  500.000000  500.000000  500.000000  500.000000    500.000000  500.000000  500.000000  500.000000  500.000000  500.000000  500.000000   500.000000          500.000000  500.000000
@@ -42,5 +43,10 @@ Lowest correlated are:
 4. ('Hour', 'Year') with 0.002561
 5. ('weather_code', 'is_weekend') with 0.002626
 
+fall average t_diff is -0.62
+spring average t_diff is -1.42
+summer average t_diff is -0.02
+winter average t_diff is -2.04
+All average t_diff is -1.00
 
 Process finished with exit code 0
