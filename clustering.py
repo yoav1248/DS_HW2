@@ -35,9 +35,12 @@ def transform_data(df, features):
     :param features: list of 2 features from the dataframe
     :return: transformed data as numpy array of shape (n, 2)
     """
-    pass
-    # return data
+    df_relevant = df[features]
+    df_scaled = min_max_scale(df_relevant)
+    return add_noise(df_scaled)
 
+def min_max_scale(df):
+    return (df - df.min()) / (df.max() - df.min())
 
 def kmeans(data, k):
     """
