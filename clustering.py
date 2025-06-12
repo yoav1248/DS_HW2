@@ -74,8 +74,7 @@ def dist(x, y):
     :param y: numpy array of size n
     :return: the euclidean distance
     """
-    pass
-    # return distance
+    return np.linalg.norm(x - y)
 
 
 def assign_to_clusters(data, centroids):
