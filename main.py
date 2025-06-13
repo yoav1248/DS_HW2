@@ -13,5 +13,5 @@ data = transform_data(df, ["cnt", "t1"])
 for k in [2, 3, 5]:
     labels, centroids = kmeans(data, k)
     print(f"k = {k}")
-    print(centroids.round(decimals = 3))
+    print(np.array_str(centroids, precision=3, suppress_small=True))
     print()
