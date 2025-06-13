@@ -37,7 +37,7 @@ def transform_data(df, features):
     """
     df_relevant = df[features]
     df_scaled = min_max_scale(df_relevant)
-    return add_noise(df_scaled)
+    return add_noise(df_scaled).to_numpy()
 
 def min_max_scale(df):
     return (df - df.min()) / (df.max() - df.min())
@@ -51,8 +51,16 @@ def kmeans(data, k):
     * labels - numpy array of size n, where each entry is the predicted label (cluster number)
     * centroids - numpy array of shape (k, 2), centroid for each cluster.
     """
-    pass
-    # return labels, centroids
+    prev_centroids = None
+    labels = None
+    current_centroids = choose_initial_centroids(data, k)
+
+    while prev_centroids is None or not np.array_equal(prev_centroids, current_centroids):
+        prev_centroids = current_centroids.copy()
+        labels = assign_to_clusters(data, current_centroids)
+        current_centroids = recompute_centroids(data, labels, k)
+
+    return labels, current_centroids
 
 
 def visualize_results(data, labels, centroids, path):
@@ -67,15 +75,15 @@ def visualize_results(data, labels, centroids, path):
     # plt.savefig(path)
 
 
-def dist(x, y):
+def dist(vectors, reference):
     """
-    Euclidean distance between vectors x, y
-    :param x: numpy array of size n
-    :param y: numpy array of size n
-    :return: the euclidean distance
+    Euclidean distances between some multidimensional array of vectors
+     and a reference point.
+    :param vectors: numpy array of shape (..., n)
+    :param reference: numpy array of size n
+    :return: numpy array of shape (...) as in vectors, containing distances
     """
-    return np.linalg.norm(x - y)
-
+    return np.linalg.norm(vectors - reference, axis = -1)
 
 def assign_to_clusters(data, centroids):
     """
@@ -84,9 +92,8 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
-    pass
-    # return labels
-
+    closest_index = lambda point: dist(centroids, point).argmin()
+    return np.apply_along_axis(closest_index, 1, data)
 
 def recompute_centroids(data, labels, k):
     """
@@ -96,6 +103,5 @@ def recompute_centroids(data, labels, k):
     :param k: number of clusters
     :return: numpy array of shape (k, 2)
     """
-    pass
-    # return centroids
+    return np.array([data[labels == label].mean(axis = 0) for label in range(k)])
 
