@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 np.random.seed(2)
 
 
@@ -39,8 +40,10 @@ def transform_data(df, features):
     df_scaled = min_max_scale(df_relevant)
     return add_noise(df_scaled).to_numpy()
 
+
 def min_max_scale(df):
     return (df - df.min()) / (df.max() - df.min())
+
 
 def kmeans(data, k):
     """
@@ -71,8 +74,16 @@ def visualize_results(data, labels, centroids, path):
     :param centroids: the final centroids of kmeans, as numpy array of shape (k, 2)
     :param path: path to save the figure to.
     """
-    pass
-    # plt.savefig(path)
+
+    plt.scatter(*data.T, c=labels)
+    plt.scatter(*centroids.T, color='white', edgecolors='black', marker='*', s=300, alpha=0.8)
+
+    plt.xlabel('cnt')
+    plt.ylabel('t1')
+    plt.title(f"Results for k = {np.unique(labels).shape[0]}")
+
+    plt.savefig(path)
+    plt.close('all')
 
 
 def dist(vectors, reference):
@@ -83,7 +94,8 @@ def dist(vectors, reference):
     :param reference: numpy array of size n
     :return: numpy array of shape (...) as in vectors, containing distances
     """
-    return np.linalg.norm(vectors - reference, axis = -1)
+    return np.linalg.norm(vectors - reference, axis=-1)
+
 
 def assign_to_clusters(data, centroids):
     """
@@ -95,6 +107,7 @@ def assign_to_clusters(data, centroids):
     closest_index = lambda point: dist(centroids, point).argmin()
     return np.apply_along_axis(closest_index, 1, data)
 
+
 def recompute_centroids(data, labels, k):
     """
     Recomputes new centroids based on the current assignment
@@ -103,5 +116,4 @@ def recompute_centroids(data, labels, k):
     :param k: number of clusters
     :return: numpy array of shape (k, 2)
     """
-    return np.array([data[labels == label].mean(axis = 0) for label in range(k)])
-
+    return np.array([data[labels == label].mean(axis=0) for label in range(k)])
