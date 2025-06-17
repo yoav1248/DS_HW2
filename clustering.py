@@ -109,7 +109,9 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
+    # find the index of the closest centroid to a given point
     closest_index = lambda point: dist(centroids, point).argmin()
+    # find that index for each row in the data
     return np.apply_along_axis(closest_index, 1, data)
 
 
