@@ -56,8 +56,8 @@ def data_analysis(df):
     pair_to_abs_corr_dict = {}
 
     for i, feature_name1 in enumerate(feature_names):
-        for j, feature_name2 in enumerate(feature_names[i+1:]):
-            pair_to_abs_corr_dict[(feature_name1, feature_name2)] = abs(corr.loc[feature_name1, feature_name2])
+        for j, feature_name2 in enumerate(feature_names[i + 1:], start=i + 1):
+            pair_to_abs_corr_dict[(feature_name1, feature_name2)] = abs(corr.iloc[i, j])
 
     items_by_abs_corr_desc = sorted(pair_to_abs_corr_dict.items(),
                                key = lambda item: abs(item[1]),
