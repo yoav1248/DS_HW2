@@ -2,10 +2,19 @@ import pandas as pd
 from datetime import datetime
 
 def load_data(path):
+    """
+    Loads a csv file from the path into a dataframe.
+    :param path: path to csv file.
+    :return: a dataframe constructed from that file
+    """
     return pd.read_csv(path)
 
 def add_new_columns(df):
-    # override df with a copy so original dataframe is not modified
+    """
+    Adds some new columns to df.
+    :param df: dataframe as was read from the original csv.
+    :return: a new dataframe with the added columns
+    """
     df = df.copy()
 
     season_names = ['spring', 'summer', 'fall', 'winter']
@@ -27,9 +36,15 @@ def add_new_columns(df):
     return df
 
 def data_analysis(df):
+    """
+    Adds some new columns to df.
+    :param df: dataframe as was read from the original csv.
+    :return: a new dataframe with the added columns
+    """
     print("describe output:")
     print(df.describe().to_string())
     print()
+
     print("corr output:")
     corr = df.corr()
     print(corr.to_string())
