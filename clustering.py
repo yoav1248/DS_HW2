@@ -80,7 +80,7 @@ def visualize_results(data, labels, centroids, path):
 
     plt.xlabel('cnt')
     plt.ylabel('t1')
-    plt.title(f"Results for k = {np.unique(labels).shape[0]}")
+    plt.title(f"Results for k = {centroids.shape[0]}")
 
     plt.savefig(path)
     plt.close('all')
