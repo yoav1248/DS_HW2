@@ -42,6 +42,11 @@ def transform_data(df, features):
 
 
 def min_max_scale(df):
+    """
+    Performs min max scaling on df
+    :param df: dataframe to operate on.
+    :return: transformed data as a dataframe
+    """
     return (df - df.min()) / (df.max() - df.min())
 
 
