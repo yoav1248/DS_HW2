@@ -1,8 +1,9 @@
 from data import *
 from clustering import *
 
+IS_SAMPLE = False
 FILE_FORMAT = "pdf"
-CSV_PATH = "london.csv"
+CSV_PATH = "london_sample_500.csv" if IS_SAMPLE else "london.csv"
 
 print("Part A: ")
 df = load_data(CSV_PATH)
@@ -20,4 +21,4 @@ for k in [2, 3, 5]:
     print(np.array_str(centroids, precision=3, suppress_small=True))
     print()
 
-    visualize_results(data, labels, centroids, f"plot_{k}.{FILE_FORMAT}")
+    visualize_results(data, labels, centroids, f"plot_{k}{'_sample' if IS_SAMPLE else ''}.{FILE_FORMAT}")
