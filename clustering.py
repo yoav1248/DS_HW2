@@ -80,7 +80,7 @@ def visualize_results(data, labels, centroids, path):
     :param path: path to save the figure to.
     """
 
-    plt.scatter(*data.T, c=labels)
+    plt.scatter(*data.T, c=labels, s=4)
     plt.scatter(*centroids.T, color='white', edgecolors='black', marker='*', s=300, alpha=0.8)
 
     plt.xlabel('cnt')
