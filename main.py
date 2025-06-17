@@ -1,8 +1,8 @@
 from data import *
 from clustering import *
 
-FILE_FORMAT = "jpeg"
-CSV_PATH = "london_sample_500.csv"
+FILE_FORMAT = "pdf"
+CSV_PATH = "london.csv"
 
 print("Part A: ")
 df = load_data(CSV_PATH)
@@ -20,4 +20,4 @@ for k in [2, 3, 5]:
     print(np.array_str(centroids, precision=3, suppress_small=True))
     print()
 
-    visualize_results(data, labels, centroids, f"results for k={k}.{FILE_FORMAT}")
+    visualize_results(data, labels, centroids, f"plot_{k}.{FILE_FORMAT}")
