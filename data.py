@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 
+
 def load_data(path):
     """
     Loads a csv file from the path into a dataframe.
@@ -8,6 +9,7 @@ def load_data(path):
     :return: a dataframe constructed from that file
     """
     return pd.read_csv(path)
+
 
 def add_new_columns(df):
     """
@@ -29,11 +31,12 @@ def add_new_columns(df):
     df['Year'] = datetime_series.apply(lambda datetime_obj: datetime_obj.year)
 
     df['is_weekend_holiday'] = df.apply(lambda record: record['is_holiday'] * 2 + record['is_weekend'] + 1,
-                                        axis = 1)
+                                        axis=1)
 
     df['t_diff'] = df.apply(lambda record: record['t2'] - record['t1'], axis=1)
 
     return df
+
 
 def data_analysis(df):
     """
@@ -50,7 +53,6 @@ def data_analysis(df):
     print(corr.to_string())
     print()
 
-
     feature_names = corr.columns
 
     pair_to_abs_corr_dict = {}
@@ -60,21 +62,20 @@ def data_analysis(df):
             pair_to_abs_corr_dict[(feature_name1, feature_name2)] = abs(corr.iloc[i, j])
 
     items_by_abs_corr_desc = sorted(pair_to_abs_corr_dict.items(),
-                               key = lambda item: abs(item[1]),
-                               reverse = True)
+                                    key=lambda item: abs(item[1]),
+                                    reverse=True)
 
     print("Highest correlated are: ")
     for i, (feature_pair, abs_corr) in enumerate(items_by_abs_corr_desc[:5]):
-        print(f"{i+1}. {feature_pair} with {abs_corr:.6f}")
+        print(f"{i + 1}. {feature_pair} with {abs_corr:.6f}")
     print()
 
     print("Lowest correlated are: ")
     for i, (feature_pair, abs_corr) in enumerate(reversed(items_by_abs_corr_desc[-5:])):
-        print(f"{i+1}. {feature_pair} with {abs_corr:.6f}")
+        print(f"{i + 1}. {feature_pair} with {abs_corr:.6f}")
     print()
 
     season_t_diff_means = df.groupby(["season_name"])["t_diff"].mean()
     season_t_diff_means["All"] = df["t_diff"].mean()
     for season_name, avg in season_t_diff_means.items():
         print(f"{season_name} average t_diff is {avg:.2f}")
-
