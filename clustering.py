@@ -123,4 +123,8 @@ def recompute_centroids(data, labels, k):
     :param k: number of clusters
     :return: numpy array of shape (k, 2)
     """
-    return np.array([data[labels == label].mean(axis=0) for label in range(k)])
+
+    # filters for points with a matching label, and computes the centroid (mean along column)
+    get_centroid_by_label = lambda label: data[labels == label].mean(axis=0)
+    # finds the centroid for each possible label
+    return np.array([get_centroid_by_label(label) for label in range(k)])
